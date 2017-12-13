@@ -11,10 +11,10 @@ from setuptools import setup, find_packages
 # To use a consistent encoding
 from codecs import open
 from os import path, chdir
-from sys import maxsize
-from sys import version, version_info
+# from sys import maxsize
+# from sys import version, version_info
 # Determine if Windows or Mac
-import platform
+# import platform
 
 here = path.abspath(path.dirname(__file__))
 
@@ -22,53 +22,53 @@ here = path.abspath(path.dirname(__file__))
 with open(path.join(here, 'DESCRIPTION.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
-def get_config():
-    if maxsize == 2147483647:
-        python_interpreter_architecture = 32
-    elif maxsize == 9223372036854775807:
-        # May not detect Windows x64 (maxsize = 2147483647)!
-        python_interpreter_architecture = 64
-    else:
-        python_interpreter_architecture = 0
-    if version_info[0] == 2:
-        python_version = 2
-    elif version_info[0] == 3:
-        python_version = 3
-    else:
-        python_version = 0
-    if platform.system() == 'Darwin':
-        platform_system = 'Mac'
-    elif platform.system() == 'Windows':
-        platform_system = 'Win'
-    else:
-	    platform_system = 'Linux'
-    return (platform_system, python_interpreter_architecture, python_version)
+# def get_config():
+#     if maxsize == 2147483647:
+#         python_interpreter_architecture = 32
+#     elif maxsize == 9223372036854775807:
+#         # May not detect Windows x64 (maxsize = 2147483647)!
+#         python_interpreter_architecture = 64
+#     else:
+#         python_interpreter_architecture = 0
+#     if version_info[0] == 2:
+#         python_version = 2
+#     elif version_info[0] == 3:
+#         python_version = 3
+#     else:
+#         python_version = 0
+#     if platform.system() == 'Darwin':
+#         platform_system = 'Mac'
+#     elif platform.system() == 'Windows':
+#         platform_system = 'Win'
+#     else:
+# 	    platform_system = 'Linux'
+#     return (platform_system, python_interpreter_architecture, python_version)
 
-config = get_config()
-print("Installing libSBOL binaries for %s %d-bit %s" %(config[0], config[1], version))
-# Reconstruct path to binaries based on the system and Python interpreter architecture
-package_dir = "%s_%d_%d" %(config[0], config[1], config[2])
-print(package_dir)
-if config[0] == 'Win':
-    #chdir(path.join(here,package_dir))
-    package_data={
-    'sbol': ['examples/*'],
-    'sbol.test': ['*.*', 'SBOL2/*.*'],
-    'sbol': ['_libsbol.pyd', 'libsbol.py']
-    }
-elif config[0] == 'Mac':
-    chdir(path.join(here,package_dir))
-    package_data={
-      'sbol': ['examples/*'],
-      'sbol.test': ['*.*', 'SBOL2/*.*'],
-      'sbol': ['_libsbol.so', 'libsbol.py']
-    }
-else:
-    package_data={
-      'sbol': ['examples/*'],
-      'sbol.test': ['*.*', 'SBOL2/*.*'],
-      'sbol': ['_libsbol.so', 'libsbol.py']
-    }
+# config = get_config()
+# print("Installing libSBOL binaries for %s %d-bit %s" %(config[0], config[1], version))
+# # Reconstruct path to binaries based on the system and Python interpreter architecture
+# package_dir = "%s_%d_%d" %(config[0], config[1], config[2])
+# print(package_dir)
+# if config[0] == 'Win':
+#     chdir(path.join(here,package_dir))
+#     package_data={
+#     'sbol': ['examples/*'],
+#     'sbol.test': ['*.*', 'SBOL2/*.*'],
+#     'sbol': ['_libsbol.pyd', 'libsbol.py']
+#     }
+# elif config[0] == 'Mac':
+#     chdir(path.join(here,package_dir))
+#     package_data={
+#       'sbol': ['examples/*'],
+#       'sbol.test': ['*.*', 'SBOL2/*.*'],
+#       'sbol': ['_libsbol.so', 'libsbol.py']
+#     }
+# else:
+#     package_data={
+#       'sbol': ['examples/*'],
+#       'sbol.test': ['*.*', 'SBOL2/*.*'],
+#       'sbol': ['_libsbol.so', 'libsbol.py']
+#     }
 	
 setup(
     name='pySBOL',
@@ -76,7 +76,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='2.4.0.post1',
+    version='2.4.1',
 
     description='A module for reading, writing, and constructing genetic designs according to the standardized specifications of the Synthetic Biology Open Language (SBOL).',
     long_description=long_description,
@@ -121,7 +121,8 @@ setup(
     # simple. Or you can use find_packages().
     #packages = ['examples'],
     #packages = ['sbol']  # No subdirectory named sbol
-    packages=['sbol', 'sbol.test'],
+    #packages=['sbol', 'sbol.test'],
+    packages=['sbol'],
     #packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
 
     # List run-time dependencies here.  These will be installed by pip when
@@ -142,7 +143,7 @@ setup(
     # If there are data files included in your packages that need to be
     # installed, specify them here.  If using Python 2.6 or less, then these
     # have to be included in MANIFEST.in as well.
-    package_data=package_data,
+    # package_data=package_data,
     # Although 'package_data' is the preferred approach, in some case you may
     # need to place data files outside of your packages. See:
     # http://docs.python.org/3.4/distutils/setupscript.html#installing-additional-files # noqa

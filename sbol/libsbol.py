@@ -20424,12 +20424,12 @@ def applyToComponentHierarchy(self, callback_fn, user_data):
 ComponentDefinition.applyToComponentHierarchy = applyToComponentHierarchy
 
 
-def testSBOL():
-    """
-    Function to run test suite for pySBOL
-    """
-    import sbol.unit_tests as unit_tests
-    unit_tests.runTests()
+# def testSBOL():
+#     """
+#     Function to run test suite for pySBOL
+#     """
+#     import sbol.unit_tests as unit_tests
+#     unit_tests.runTests()
 
 # This file is compatible with both classic and new-style classes.
 
