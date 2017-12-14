@@ -71,22 +71,22 @@ else:
     }
 	
 setup(
-    name='pySBOL',
+    name='pySBOLwin64',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='2.4.0.post1',
+    version='0.1',
 
     description='A module for reading, writing, and constructing genetic designs according to the standardized specifications of the Synthetic Biology Open Language (SBOL).',
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://github.com/SynBioDex/pySBOL',
+    url='https://github.com/nroehner/pySBOL_Win_64_3',
 
     # Author details
-    author='Bryan Bartley',
-    author_email='editors@sbolstandard.org',
+    author='Nicholas Roehner',
+    author_email='nicholasroehner@gmail.com',
 
     # Choose your license
     license='Apache-2',
