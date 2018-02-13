@@ -1365,6 +1365,7 @@ SBO_DEGRADATION = _libsbol.SBO_DEGRADATION
 SBO_CONTROL = _libsbol.SBO_CONTROL
 SBO_BIOCHEMICAL_REACTION = _libsbol.SBO_BIOCHEMICAL_REACTION
 SBO_STIMULATED = _libsbol.SBO_STIMULATED
+SBO_CONVERSION = _libsbol.SBO_CONVERSION
 SBO_PROMOTER = _libsbol.SBO_PROMOTER
 SBO_GENE = _libsbol.SBO_GENE
 SBO_INHIBITOR = _libsbol.SBO_INHIBITOR
@@ -1375,6 +1376,10 @@ SBO_PRODUCT = _libsbol.SBO_PRODUCT
 SBO_LIGAND = _libsbol.SBO_LIGAND
 SBO_NONCOVALENT_COMPLEX = _libsbol.SBO_NONCOVALENT_COMPLEX
 SBO_BINDING_SITE = _libsbol.SBO_BINDING_SITE
+SBO_SUBSTRATE = _libsbol.SBO_SUBSTRATE
+SBO_COFACTOR = _libsbol.SBO_COFACTOR
+SBO_SIDEPRODUCT = _libsbol.SBO_SIDEPRODUCT
+SBO_ENZYME = _libsbol.SBO_ENZYME
 SO = _libsbol.SO
 SO_MISC = _libsbol.SO_MISC
 SO_GENE = _libsbol.SO_GENE
@@ -1489,6 +1494,10 @@ libsbol_rule_17 = _libsbol.libsbol_rule_17
 def libsbol_rule_18(sbol_obj, arg):
     return _libsbol.libsbol_rule_18(sbol_obj, arg)
 libsbol_rule_18 = _libsbol.libsbol_rule_18
+
+def libsbol_rule_19(sbol_obj, arg):
+    return _libsbol.libsbol_rule_19(sbol_obj, arg)
+libsbol_rule_19 = _libsbol.libsbol_rule_19
 
 def is_alphanumeric_or_underscore(c):
     return _libsbol.is_alphanumeric_or_underscore(c)
@@ -1665,8 +1674,8 @@ class _StringProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol._StringProperty_python_iter_get, _libsbol._StringProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol._StringProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol._StringProperty_addValidationRule(self, *args)
 _StringProperty_swigregister = _libsbol._StringProperty_swigregister
 _StringProperty_swigregister(_StringProperty)
 
@@ -1838,8 +1847,8 @@ class _IntProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol._IntProperty_python_iter_get, _libsbol._IntProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol._IntProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol._IntProperty_addValidationRule(self, *args)
 _IntProperty_swigregister = _libsbol._IntProperty_swigregister
 _IntProperty_swigregister(_IntProperty)
 
@@ -2011,8 +2020,8 @@ class _FloatProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol._FloatProperty_python_iter_get, _libsbol._FloatProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol._FloatProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol._FloatProperty_addValidationRule(self, *args)
 _FloatProperty_swigregister = _libsbol._FloatProperty_swigregister
 _FloatProperty_swigregister(_FloatProperty)
 
@@ -3985,6 +3994,9 @@ class FunctionalComponent(ComponentInstance):
         return _libsbol.FunctionalComponent_mask(self, masked_component)
 
 
+    def override(self, masked_component):
+        return _libsbol.FunctionalComponent_override(self, masked_component)
+
     def isMasked(self):
         """
 
@@ -5473,8 +5485,11 @@ class ModuleDefinition(TopLevel):
         return _libsbol.ModuleDefinition_setInput(self, *args)
 
 
-    def connect(self, input, output):
-        return _libsbol.ModuleDefinition_connect(self, input, output)
+    def connect(self, output, input):
+        return _libsbol.ModuleDefinition_connect(self, output, input)
+
+    def override(self, highlevel, lowlevel):
+        return _libsbol.ModuleDefinition_override(self, highlevel, lowlevel)
     __swig_destroy__ = _libsbol.delete_ModuleDefinition
     __del__ = lambda self: None
 
@@ -7524,6 +7539,104 @@ class SmallMoleculeActivationInteraction(Interaction):
 SmallMoleculeActivationInteraction_swigregister = _libsbol.SmallMoleculeActivationInteraction_swigregister
 SmallMoleculeActivationInteraction_swigregister(SmallMoleculeActivationInteraction)
 
+class EnzymeCatalysisInteraction(Interaction):
+    __swig_setmethods__ = {}
+    for _s in [Interaction]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, EnzymeCatalysisInteraction, name, value)
+    __swig_getmethods__ = {}
+    for _s in [Interaction]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, EnzymeCatalysisInteraction, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["enzyme"] = _libsbol.EnzymeCatalysisInteraction_enzyme_set
+    __swig_getmethods__["enzyme"] = _libsbol.EnzymeCatalysisInteraction_enzyme_get
+    if _newclass:
+        enzyme = _swig_property(_libsbol.EnzymeCatalysisInteraction_enzyme_get, _libsbol.EnzymeCatalysisInteraction_enzyme_set)
+    __swig_setmethods__["substrates"] = _libsbol.EnzymeCatalysisInteraction_substrates_set
+    __swig_getmethods__["substrates"] = _libsbol.EnzymeCatalysisInteraction_substrates_get
+    if _newclass:
+        substrates = _swig_property(_libsbol.EnzymeCatalysisInteraction_substrates_get, _libsbol.EnzymeCatalysisInteraction_substrates_set)
+    __swig_setmethods__["products"] = _libsbol.EnzymeCatalysisInteraction_products_set
+    __swig_getmethods__["products"] = _libsbol.EnzymeCatalysisInteraction_products_get
+    if _newclass:
+        products = _swig_property(_libsbol.EnzymeCatalysisInteraction_products_get, _libsbol.EnzymeCatalysisInteraction_products_set)
+    __swig_setmethods__["cofactors"] = _libsbol.EnzymeCatalysisInteraction_cofactors_set
+    __swig_getmethods__["cofactors"] = _libsbol.EnzymeCatalysisInteraction_cofactors_get
+    if _newclass:
+        cofactors = _swig_property(_libsbol.EnzymeCatalysisInteraction_cofactors_get, _libsbol.EnzymeCatalysisInteraction_cofactors_set)
+    __swig_setmethods__["sideproducts"] = _libsbol.EnzymeCatalysisInteraction_sideproducts_set
+    __swig_getmethods__["sideproducts"] = _libsbol.EnzymeCatalysisInteraction_sideproducts_get
+    if _newclass:
+        sideproducts = _swig_property(_libsbol.EnzymeCatalysisInteraction_sideproducts_get, _libsbol.EnzymeCatalysisInteraction_sideproducts_set)
+
+
+    def __getattribute__(self,name):
+        if name in object.__getattribute__(self, '__swig_getmethods__').keys():
+            sbol_attribute = object.__getattribute__(self, name)
+            if not 'Owned' in sbol_attribute.__class__.__name__:
+                if sbol_attribute.getUpperBound() != '1':
+                    return sbol_attribute.getAll()
+                else:
+                    try:
+                        return sbol_attribute.get()
+                    except LookupError:
+                        return None
+                return None
+            elif sbol_attribute.getUpperBound() == '1':
+                try:
+                    return sbol_attribute.get()
+                except:
+                    return None
+        return object.__getattribute__(self, name)
+
+    __setattribute__ = __setattr__
+
+    def __setattr__(self,name, value):
+        if name in object.__getattribute__(self, '__swig_setmethods__').keys():
+            sbol_attribute = object.__getattribute__(self, name)
+            if not 'Owned' in sbol_attribute.__class__.__name__:
+                if value == None:
+                    sbol_attribute.clear()
+                elif type(value) == list:
+                    if sbol_attribute.getUpperBound() == '1':
+                        raise TypeError('The ' + sbol_attribute.getTypeURI() + ' property does not accept list arguments')
+                    sbol_attribute.clear()
+                    for val in value:
+                        sbol_attribute.add(val)
+                else:
+                    sbol_attribute.set(value)
+            elif sbol_attribute.getUpperBound() == '1':
+                if len(sbol_attribute) > 0:
+                    sbol_obj = sbol_attribute.get()
+                    doc = sbol_obj.doc
+                    sbol_attribute.remove()
+                    if not doc:
+                        sbol_obj.thisown = True
+                    elif not doc.find(sbol_obj.identity):
+                        sbol_obj.thisown = True
+                if not value == None:
+                    sbol_attribute.set(value)
+                    value.thisown = False
+        else:
+            self.__class__.__setattribute__(self, name, value)
+
+    def __repr__(self):
+        return self.__class__.__name__
+
+
+
+    def __init__(self, *args):
+        this = _libsbol.new_EnzymeCatalysisInteraction(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libsbol.delete_EnzymeCatalysisInteraction
+    __del__ = lambda self: None
+EnzymeCatalysisInteraction_swigregister = _libsbol.EnzymeCatalysisInteraction_swigregister
+EnzymeCatalysisInteraction_swigregister(EnzymeCatalysisInteraction)
+
 class SearchQuery(TopLevel):
     __swig_setmethods__ = {}
     for _s in [TopLevel]:
@@ -9276,8 +9389,8 @@ class LocationProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.LocationProperty_python_iter_get, _libsbol.LocationProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.LocationProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.LocationProperty_addValidationRule(self, *args)
 LocationProperty_swigregister = _libsbol.LocationProperty_swigregister
 LocationProperty_swigregister(LocationProperty)
 
@@ -9529,44 +9642,6 @@ class OwnedLocation(LocationProperty):
     def __len__(self):
         return _libsbol.OwnedLocation___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedLocation_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -9633,44 +9708,6 @@ class OwnedLocation(LocationProperty):
         return _libsbol.OwnedLocation_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedLocation_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -9735,44 +9772,6 @@ class OwnedLocation(LocationProperty):
 
         """
         return _libsbol.OwnedLocation_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedLocation_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -10156,8 +10155,8 @@ class MapsToProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.MapsToProperty_python_iter_get, _libsbol.MapsToProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.MapsToProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.MapsToProperty_addValidationRule(self, *args)
 MapsToProperty_swigregister = _libsbol.MapsToProperty_swigregister
 MapsToProperty_swigregister(MapsToProperty)
 
@@ -10409,44 +10408,6 @@ class OwnedMapsTo(MapsToProperty):
     def __len__(self):
         return _libsbol.OwnedMapsTo___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedMapsTo_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -10513,44 +10474,6 @@ class OwnedMapsTo(MapsToProperty):
         return _libsbol.OwnedMapsTo_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedMapsTo_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -10615,44 +10538,6 @@ class OwnedMapsTo(MapsToProperty):
 
         """
         return _libsbol.OwnedMapsTo_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedMapsTo_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -11036,8 +10921,8 @@ class SequenceConstraintProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.SequenceConstraintProperty_python_iter_get, _libsbol.SequenceConstraintProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.SequenceConstraintProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.SequenceConstraintProperty_addValidationRule(self, *args)
 SequenceConstraintProperty_swigregister = _libsbol.SequenceConstraintProperty_swigregister
 SequenceConstraintProperty_swigregister(SequenceConstraintProperty)
 
@@ -11289,44 +11174,6 @@ class OwnedSequenceConstraint(SequenceConstraintProperty):
     def __len__(self):
         return _libsbol.OwnedSequenceConstraint___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedSequenceConstraint_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -11393,44 +11240,6 @@ class OwnedSequenceConstraint(SequenceConstraintProperty):
         return _libsbol.OwnedSequenceConstraint_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedSequenceConstraint_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -11495,44 +11304,6 @@ class OwnedSequenceConstraint(SequenceConstraintProperty):
 
         """
         return _libsbol.OwnedSequenceConstraint_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedSequenceConstraint_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -11916,8 +11687,8 @@ class SequenceAnnotationProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.SequenceAnnotationProperty_python_iter_get, _libsbol.SequenceAnnotationProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.SequenceAnnotationProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.SequenceAnnotationProperty_addValidationRule(self, *args)
 SequenceAnnotationProperty_swigregister = _libsbol.SequenceAnnotationProperty_swigregister
 SequenceAnnotationProperty_swigregister(SequenceAnnotationProperty)
 
@@ -12169,44 +11940,6 @@ class OwnedSequenceAnnotation(SequenceAnnotationProperty):
     def __len__(self):
         return _libsbol.OwnedSequenceAnnotation___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedSequenceAnnotation_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -12273,44 +12006,6 @@ class OwnedSequenceAnnotation(SequenceAnnotationProperty):
         return _libsbol.OwnedSequenceAnnotation_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedSequenceAnnotation_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -12375,44 +12070,6 @@ class OwnedSequenceAnnotation(SequenceAnnotationProperty):
 
         """
         return _libsbol.OwnedSequenceAnnotation_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedSequenceAnnotation_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -12796,8 +12453,8 @@ class ComponentProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.ComponentProperty_python_iter_get, _libsbol.ComponentProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.ComponentProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.ComponentProperty_addValidationRule(self, *args)
 ComponentProperty_swigregister = _libsbol.ComponentProperty_swigregister
 ComponentProperty_swigregister(ComponentProperty)
 
@@ -13049,44 +12706,6 @@ class OwnedComponent(ComponentProperty):
     def __len__(self):
         return _libsbol.OwnedComponent___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedComponent_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -13153,44 +12772,6 @@ class OwnedComponent(ComponentProperty):
         return _libsbol.OwnedComponent_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedComponent_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -13255,44 +12836,6 @@ class OwnedComponent(ComponentProperty):
 
         """
         return _libsbol.OwnedComponent_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedComponent_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -13676,8 +13219,8 @@ class ParticipationProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.ParticipationProperty_python_iter_get, _libsbol.ParticipationProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.ParticipationProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.ParticipationProperty_addValidationRule(self, *args)
 ParticipationProperty_swigregister = _libsbol.ParticipationProperty_swigregister
 ParticipationProperty_swigregister(ParticipationProperty)
 
@@ -13929,44 +13472,6 @@ class OwnedParticipation(ParticipationProperty):
     def __len__(self):
         return _libsbol.OwnedParticipation___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedParticipation_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -14033,44 +13538,6 @@ class OwnedParticipation(ParticipationProperty):
         return _libsbol.OwnedParticipation_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedParticipation_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -14135,44 +13602,6 @@ class OwnedParticipation(ParticipationProperty):
 
         """
         return _libsbol.OwnedParticipation_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedParticipation_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -14556,8 +13985,8 @@ class ModuleProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.ModuleProperty_python_iter_get, _libsbol.ModuleProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.ModuleProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.ModuleProperty_addValidationRule(self, *args)
 ModuleProperty_swigregister = _libsbol.ModuleProperty_swigregister
 ModuleProperty_swigregister(ModuleProperty)
 
@@ -14809,44 +14238,6 @@ class OwnedModule(ModuleProperty):
     def __len__(self):
         return _libsbol.OwnedModule___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedModule_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -14913,44 +14304,6 @@ class OwnedModule(ModuleProperty):
         return _libsbol.OwnedModule_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedModule_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -15015,44 +14368,6 @@ class OwnedModule(ModuleProperty):
 
         """
         return _libsbol.OwnedModule_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedModule_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -15436,8 +14751,8 @@ class InteractionProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.InteractionProperty_python_iter_get, _libsbol.InteractionProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.InteractionProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.InteractionProperty_addValidationRule(self, *args)
 InteractionProperty_swigregister = _libsbol.InteractionProperty_swigregister
 InteractionProperty_swigregister(InteractionProperty)
 
@@ -15689,44 +15004,6 @@ class OwnedInteraction(InteractionProperty):
     def __len__(self):
         return _libsbol.OwnedInteraction___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedInteraction_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -15793,44 +15070,6 @@ class OwnedInteraction(InteractionProperty):
         return _libsbol.OwnedInteraction_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedInteraction_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -15895,44 +15134,6 @@ class OwnedInteraction(InteractionProperty):
 
         """
         return _libsbol.OwnedInteraction_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedInteraction_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -16316,8 +15517,8 @@ class FunctionalComponentProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.FunctionalComponentProperty_python_iter_get, _libsbol.FunctionalComponentProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.FunctionalComponentProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.FunctionalComponentProperty_addValidationRule(self, *args)
 FunctionalComponentProperty_swigregister = _libsbol.FunctionalComponentProperty_swigregister
 FunctionalComponentProperty_swigregister(FunctionalComponentProperty)
 
@@ -16569,44 +15770,6 @@ class OwnedFunctionalComponent(FunctionalComponentProperty):
     def __len__(self):
         return _libsbol.OwnedFunctionalComponent___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedFunctionalComponent_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -16673,44 +15836,6 @@ class OwnedFunctionalComponent(FunctionalComponentProperty):
         return _libsbol.OwnedFunctionalComponent_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedFunctionalComponent_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -16775,44 +15900,6 @@ class OwnedFunctionalComponent(FunctionalComponentProperty):
 
         """
         return _libsbol.OwnedFunctionalComponent_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedFunctionalComponent_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -17196,8 +16283,8 @@ class AssociationProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.AssociationProperty_python_iter_get, _libsbol.AssociationProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.AssociationProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.AssociationProperty_addValidationRule(self, *args)
 AssociationProperty_swigregister = _libsbol.AssociationProperty_swigregister
 AssociationProperty_swigregister(AssociationProperty)
 
@@ -17449,44 +16536,6 @@ class OwnedAssociation(AssociationProperty):
     def __len__(self):
         return _libsbol.OwnedAssociation___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedAssociation_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -17553,44 +16602,6 @@ class OwnedAssociation(AssociationProperty):
         return _libsbol.OwnedAssociation_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedAssociation_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -17655,44 +16666,6 @@ class OwnedAssociation(AssociationProperty):
 
         """
         return _libsbol.OwnedAssociation_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedAssociation_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -18076,8 +17049,8 @@ class UsageProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.UsageProperty_python_iter_get, _libsbol.UsageProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.UsageProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.UsageProperty_addValidationRule(self, *args)
 UsageProperty_swigregister = _libsbol.UsageProperty_swigregister
 UsageProperty_swigregister(UsageProperty)
 
@@ -18329,44 +17302,6 @@ class OwnedUsage(UsageProperty):
     def __len__(self):
         return _libsbol.OwnedUsage___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedUsage_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -18433,44 +17368,6 @@ class OwnedUsage(UsageProperty):
         return _libsbol.OwnedUsage_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedUsage_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -18535,44 +17432,6 @@ class OwnedUsage(UsageProperty):
 
         """
         return _libsbol.OwnedUsage_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedUsage_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -18956,8 +17815,8 @@ class VariableComponentProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.VariableComponentProperty_python_iter_get, _libsbol.VariableComponentProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.VariableComponentProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.VariableComponentProperty_addValidationRule(self, *args)
 VariableComponentProperty_swigregister = _libsbol.VariableComponentProperty_swigregister
 VariableComponentProperty_swigregister(VariableComponentProperty)
 
@@ -19209,44 +18068,6 @@ class OwnedVariableComponent(VariableComponentProperty):
     def __len__(self):
         return _libsbol.OwnedVariableComponent___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedVariableComponent_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -19313,44 +18134,6 @@ class OwnedVariableComponent(VariableComponentProperty):
         return _libsbol.OwnedVariableComponent_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedVariableComponent_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -19415,44 +18198,6 @@ class OwnedVariableComponent(VariableComponentProperty):
 
         """
         return _libsbol.OwnedVariableComponent_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedVariableComponent_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -19836,8 +18581,8 @@ class ComponentDefinitionProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.ComponentDefinitionProperty_python_iter_get, _libsbol.ComponentDefinitionProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.ComponentDefinitionProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.ComponentDefinitionProperty_addValidationRule(self, *args)
 ComponentDefinitionProperty_swigregister = _libsbol.ComponentDefinitionProperty_swigregister
 ComponentDefinitionProperty_swigregister(ComponentDefinitionProperty)
 
@@ -20089,44 +18834,6 @@ class OwnedComponentDefinition(ComponentDefinitionProperty):
     def __len__(self):
         return _libsbol.OwnedComponentDefinition___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedComponentDefinition_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -20193,44 +18900,6 @@ class OwnedComponentDefinition(ComponentDefinitionProperty):
         return _libsbol.OwnedComponentDefinition_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedComponentDefinition_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -20295,44 +18964,6 @@ class OwnedComponentDefinition(ComponentDefinitionProperty):
 
         """
         return _libsbol.OwnedComponentDefinition_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedComponentDefinition_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -20716,8 +19347,8 @@ class ModuleDefinitionProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.ModuleDefinitionProperty_python_iter_get, _libsbol.ModuleDefinitionProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.ModuleDefinitionProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.ModuleDefinitionProperty_addValidationRule(self, *args)
 ModuleDefinitionProperty_swigregister = _libsbol.ModuleDefinitionProperty_swigregister
 ModuleDefinitionProperty_swigregister(ModuleDefinitionProperty)
 
@@ -20969,44 +19600,6 @@ class OwnedModuleDefinition(ModuleDefinitionProperty):
     def __len__(self):
         return _libsbol.OwnedModuleDefinition___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedModuleDefinition_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -21073,44 +19666,6 @@ class OwnedModuleDefinition(ModuleDefinitionProperty):
         return _libsbol.OwnedModuleDefinition_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedModuleDefinition_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -21175,44 +19730,6 @@ class OwnedModuleDefinition(ModuleDefinitionProperty):
 
         """
         return _libsbol.OwnedModuleDefinition_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedModuleDefinition_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -21596,8 +20113,8 @@ class SequenceProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.SequenceProperty_python_iter_get, _libsbol.SequenceProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.SequenceProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.SequenceProperty_addValidationRule(self, *args)
 SequenceProperty_swigregister = _libsbol.SequenceProperty_swigregister
 SequenceProperty_swigregister(SequenceProperty)
 
@@ -21849,44 +20366,6 @@ class OwnedSequence(SequenceProperty):
     def __len__(self):
         return _libsbol.OwnedSequence___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedSequence_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -21953,44 +20432,6 @@ class OwnedSequence(SequenceProperty):
         return _libsbol.OwnedSequence_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedSequence_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -22055,44 +20496,6 @@ class OwnedSequence(SequenceProperty):
 
         """
         return _libsbol.OwnedSequence_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedSequence_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -22476,8 +20879,8 @@ class ModelProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.ModelProperty_python_iter_get, _libsbol.ModelProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.ModelProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.ModelProperty_addValidationRule(self, *args)
 ModelProperty_swigregister = _libsbol.ModelProperty_swigregister
 ModelProperty_swigregister(ModelProperty)
 
@@ -22729,44 +21132,6 @@ class OwnedModel(ModelProperty):
     def __len__(self):
         return _libsbol.OwnedModel___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedModel_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -22833,44 +21198,6 @@ class OwnedModel(ModelProperty):
         return _libsbol.OwnedModel_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedModel_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -22935,44 +21262,6 @@ class OwnedModel(ModelProperty):
 
         """
         return _libsbol.OwnedModel_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedModel_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -23356,8 +21645,8 @@ class CollectionProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.CollectionProperty_python_iter_get, _libsbol.CollectionProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.CollectionProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.CollectionProperty_addValidationRule(self, *args)
 CollectionProperty_swigregister = _libsbol.CollectionProperty_swigregister
 CollectionProperty_swigregister(CollectionProperty)
 
@@ -23609,44 +21898,6 @@ class OwnedCollection(CollectionProperty):
     def __len__(self):
         return _libsbol.OwnedCollection___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedCollection_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -23713,44 +21964,6 @@ class OwnedCollection(CollectionProperty):
         return _libsbol.OwnedCollection_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedCollection_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -23815,44 +22028,6 @@ class OwnedCollection(CollectionProperty):
 
         """
         return _libsbol.OwnedCollection_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedCollection_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -24236,8 +22411,8 @@ class ActivityProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.ActivityProperty_python_iter_get, _libsbol.ActivityProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.ActivityProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.ActivityProperty_addValidationRule(self, *args)
 ActivityProperty_swigregister = _libsbol.ActivityProperty_swigregister
 ActivityProperty_swigregister(ActivityProperty)
 
@@ -24489,44 +22664,6 @@ class OwnedActivity(ActivityProperty):
     def __len__(self):
         return _libsbol.OwnedActivity___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedActivity_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -24593,44 +22730,6 @@ class OwnedActivity(ActivityProperty):
         return _libsbol.OwnedActivity_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedActivity_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -24695,44 +22794,6 @@ class OwnedActivity(ActivityProperty):
 
         """
         return _libsbol.OwnedActivity_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedActivity_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -25116,8 +23177,8 @@ class PlanProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.PlanProperty_python_iter_get, _libsbol.PlanProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.PlanProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.PlanProperty_addValidationRule(self, *args)
 PlanProperty_swigregister = _libsbol.PlanProperty_swigregister
 PlanProperty_swigregister(PlanProperty)
 
@@ -25369,44 +23430,6 @@ class OwnedPlan(PlanProperty):
     def __len__(self):
         return _libsbol.OwnedPlan___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedPlan_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -25473,44 +23496,6 @@ class OwnedPlan(PlanProperty):
         return _libsbol.OwnedPlan_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedPlan_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -25575,44 +23560,6 @@ class OwnedPlan(PlanProperty):
 
         """
         return _libsbol.OwnedPlan_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedPlan_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -25996,8 +23943,8 @@ class AgentProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.AgentProperty_python_iter_get, _libsbol.AgentProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.AgentProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.AgentProperty_addValidationRule(self, *args)
 AgentProperty_swigregister = _libsbol.AgentProperty_swigregister
 AgentProperty_swigregister(AgentProperty)
 
@@ -26249,44 +24196,6 @@ class OwnedAgent(AgentProperty):
     def __len__(self):
         return _libsbol.OwnedAgent___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedAgent_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -26353,44 +24262,6 @@ class OwnedAgent(AgentProperty):
         return _libsbol.OwnedAgent_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedAgent_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -26455,44 +24326,6 @@ class OwnedAgent(AgentProperty):
 
         """
         return _libsbol.OwnedAgent_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedAgent_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -26876,8 +24709,8 @@ class AttachmentProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.AttachmentProperty_python_iter_get, _libsbol.AttachmentProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.AttachmentProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.AttachmentProperty_addValidationRule(self, *args)
 AttachmentProperty_swigregister = _libsbol.AttachmentProperty_swigregister
 AttachmentProperty_swigregister(AttachmentProperty)
 
@@ -27129,44 +24962,6 @@ class OwnedAttachment(AttachmentProperty):
     def __len__(self):
         return _libsbol.OwnedAttachment___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedAttachment_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -27233,44 +25028,6 @@ class OwnedAttachment(AttachmentProperty):
         return _libsbol.OwnedAttachment_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedAttachment_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -27335,44 +25092,6 @@ class OwnedAttachment(AttachmentProperty):
 
         """
         return _libsbol.OwnedAttachment_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedAttachment_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -27756,8 +25475,8 @@ class ImplementationProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.ImplementationProperty_python_iter_get, _libsbol.ImplementationProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.ImplementationProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.ImplementationProperty_addValidationRule(self, *args)
 ImplementationProperty_swigregister = _libsbol.ImplementationProperty_swigregister
 ImplementationProperty_swigregister(ImplementationProperty)
 
@@ -28009,44 +25728,6 @@ class OwnedImplementation(ImplementationProperty):
     def __len__(self):
         return _libsbol.OwnedImplementation___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedImplementation_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -28113,44 +25794,6 @@ class OwnedImplementation(ImplementationProperty):
         return _libsbol.OwnedImplementation_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedImplementation_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -28215,44 +25858,6 @@ class OwnedImplementation(ImplementationProperty):
 
         """
         return _libsbol.OwnedImplementation_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedImplementation_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -28636,8 +26241,8 @@ class CombinatorialDerivationProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.CombinatorialDerivationProperty_python_iter_get, _libsbol.CombinatorialDerivationProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.CombinatorialDerivationProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.CombinatorialDerivationProperty_addValidationRule(self, *args)
 CombinatorialDerivationProperty_swigregister = _libsbol.CombinatorialDerivationProperty_swigregister
 CombinatorialDerivationProperty_swigregister(CombinatorialDerivationProperty)
 
@@ -28889,44 +26494,6 @@ class OwnedCombinatorialDerivation(CombinatorialDerivationProperty):
     def __len__(self):
         return _libsbol.OwnedCombinatorialDerivation___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedCombinatorialDerivation_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -28993,44 +26560,6 @@ class OwnedCombinatorialDerivation(CombinatorialDerivationProperty):
         return _libsbol.OwnedCombinatorialDerivation_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedCombinatorialDerivation_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -29095,44 +26624,6 @@ class OwnedCombinatorialDerivation(CombinatorialDerivationProperty):
 
         """
         return _libsbol.OwnedCombinatorialDerivation_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedCombinatorialDerivation_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -29516,8 +27007,8 @@ class DesignProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.DesignProperty_python_iter_get, _libsbol.DesignProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.DesignProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.DesignProperty_addValidationRule(self, *args)
 DesignProperty_swigregister = _libsbol.DesignProperty_swigregister
 DesignProperty_swigregister(DesignProperty)
 
@@ -29769,44 +27260,6 @@ class OwnedDesign(DesignProperty):
     def __len__(self):
         return _libsbol.OwnedDesign___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedDesign_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -29873,44 +27326,6 @@ class OwnedDesign(DesignProperty):
         return _libsbol.OwnedDesign_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedDesign_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -29975,44 +27390,6 @@ class OwnedDesign(DesignProperty):
 
         """
         return _libsbol.OwnedDesign_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedDesign_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -30396,8 +27773,8 @@ class BuildProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.BuildProperty_python_iter_get, _libsbol.BuildProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.BuildProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.BuildProperty_addValidationRule(self, *args)
 BuildProperty_swigregister = _libsbol.BuildProperty_swigregister
 BuildProperty_swigregister(BuildProperty)
 
@@ -30649,44 +28026,6 @@ class OwnedBuild(BuildProperty):
     def __len__(self):
         return _libsbol.OwnedBuild___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedBuild_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -30753,44 +28092,6 @@ class OwnedBuild(BuildProperty):
         return _libsbol.OwnedBuild_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedBuild_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -30855,44 +28156,6 @@ class OwnedBuild(BuildProperty):
 
         """
         return _libsbol.OwnedBuild_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedBuild_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -31276,8 +28539,8 @@ class TestProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.TestProperty_python_iter_get, _libsbol.TestProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.TestProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.TestProperty_addValidationRule(self, *args)
 TestProperty_swigregister = _libsbol.TestProperty_swigregister
 TestProperty_swigregister(TestProperty)
 
@@ -31529,44 +28792,6 @@ class OwnedTest(TestProperty):
     def __len__(self):
         return _libsbol.OwnedTest___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedTest_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -31633,44 +28858,6 @@ class OwnedTest(TestProperty):
         return _libsbol.OwnedTest_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedTest_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -31735,44 +28922,6 @@ class OwnedTest(TestProperty):
 
         """
         return _libsbol.OwnedTest_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedTest_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -32156,8 +29305,8 @@ class AnalysisProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.AnalysisProperty_python_iter_get, _libsbol.AnalysisProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.AnalysisProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.AnalysisProperty_addValidationRule(self, *args)
 AnalysisProperty_swigregister = _libsbol.AnalysisProperty_swigregister
 AnalysisProperty_swigregister(AnalysisProperty)
 
@@ -32409,44 +29558,6 @@ class OwnedAnalysis(AnalysisProperty):
     def __len__(self):
         return _libsbol.OwnedAnalysis___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedAnalysis_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -32513,44 +29624,6 @@ class OwnedAnalysis(AnalysisProperty):
         return _libsbol.OwnedAnalysis_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedAnalysis_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -32615,44 +29688,6 @@ class OwnedAnalysis(AnalysisProperty):
 
         """
         return _libsbol.OwnedAnalysis_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedAnalysis_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -33036,8 +30071,8 @@ class SampleRosterProperty(_object):
     if _newclass:
         python_iter = _swig_property(_libsbol.SampleRosterProperty_python_iter_get, _libsbol.SampleRosterProperty_python_iter_set)
 
-    def addValidationRule(self, property_object, validation_fx):
-        return _libsbol.SampleRosterProperty_addValidationRule(self, property_object, validation_fx)
+    def addValidationRule(self, *args):
+        return _libsbol.SampleRosterProperty_addValidationRule(self, *args)
 SampleRosterProperty_swigregister = _libsbol.SampleRosterProperty_swigregister
 SampleRosterProperty_swigregister(SampleRosterProperty)
 
@@ -33289,44 +30324,6 @@ class OwnedSampleRoster(SampleRosterProperty):
     def __len__(self):
         return _libsbol.OwnedSampleRoster___len__(self)
 
-    def addRange(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedSampleRoster_addRange(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createRange(self, uri):
         """
 
@@ -33393,44 +30390,6 @@ class OwnedSampleRoster(SampleRosterProperty):
         return _libsbol.OwnedSampleRoster_getRange(self, *args)
 
 
-    def addCut(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedSampleRoster_addCut(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
-
-
     def createCut(self, uri):
         """
 
@@ -33495,44 +30454,6 @@ class OwnedSampleRoster(SampleRosterProperty):
 
         """
         return _libsbol.OwnedSampleRoster_getCut(self, *args)
-
-
-    def addGenericLocation(self, sbol_obj):
-        """
-
-
-        Appends the new value to a list of values, for properties that allow it.  
-
-        templateparam
-        -------------
-        * `SBOLClass` :  
-            The type of SBOL object contained in this OwnedObject property  
-        * `SBOLSubClass` :  
-            A derived class of SBOLClass. Use this type specialization when adding
-            multiple types of SBOLObjects to a container.  
-
-        Parameters
-        ----------
-        * `sbol_obj` :  
-            A child object to add to this container property. Adds a child object to the
-            parent object. This method always appends another object to those already
-            contained in this OwnedObject property. In SBOLCompliant mode, the create
-            method is preferred  
-
-        """
-        val = _libsbol.OwnedSampleRoster_addGenericLocation(self, sbol_obj)
-
-        try:
-            sbol_obj.thisown = False
-        except NameError:
-            try:
-                if not type(args[0]) == str:
-                    args[0].thisown = False
-            except NameError:
-                pass
-
-
-        return val
 
 
     def createGenericLocation(self, uri):
@@ -33610,6 +30531,177 @@ class OwnedSampleRoster(SampleRosterProperty):
     __del__ = lambda self: None
 OwnedSampleRoster_swigregister = _libsbol.OwnedSampleRoster_swigregister
 OwnedSampleRoster_swigregister(OwnedSampleRoster)
+
+class AliasedOwnedFunctionalComponent(OwnedFunctionalComponent):
+    __swig_setmethods__ = {}
+    for _s in [OwnedFunctionalComponent]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, AliasedOwnedFunctionalComponent, name, value)
+    __swig_getmethods__ = {}
+    for _s in [OwnedFunctionalComponent]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, AliasedOwnedFunctionalComponent, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["alias"] = _libsbol.AliasedOwnedFunctionalComponent_alias_set
+    __swig_getmethods__["alias"] = _libsbol.AliasedOwnedFunctionalComponent_alias_get
+    if _newclass:
+        alias = _swig_property(_libsbol.AliasedOwnedFunctionalComponent_alias_get, _libsbol.AliasedOwnedFunctionalComponent_alias_set)
+
+    def __init__(self, property_owner, sbol_uri, alias_uri, lower_bound, upper_bound, validation_rules):
+        this = _libsbol.new_AliasedOwnedFunctionalComponent(property_owner, sbol_uri, alias_uri, lower_bound, upper_bound, validation_rules)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _libsbol.delete_AliasedOwnedFunctionalComponent
+    __del__ = lambda self: None
+
+    def set(self, sbol_obj):
+        """
+
+
+        Basic setter for OwnedObject SBOL IntProperty.
+
+        templateparam
+        -------------
+        * `SBOLClass` :  
+            The type of SBOL object contained in this OwnedObject property  
+
+        Parameters
+        ----------
+        * `sbol_obj` :  
+            A child object to add to this container property. Assigns a child object to
+            this OwnedObject container property. This method always overwrites the first
+            SBOLObject in the container. appends another object to those already
+            contained in this OwnedObject property. In SBOLCompliant mode, the create
+            method is preferred  
+        * `sbol_obj` :  
+            The child object Sets the first object in the container  
+
+        """
+        val = _libsbol.AliasedOwnedFunctionalComponent_set(self, sbol_obj)
+
+        try:
+            sbol_obj.thisown = False
+        except NameError:
+            try:
+                if not type(args[0]) == str:
+                    args[0].thisown = False
+            except NameError:
+                pass
+
+
+        return val
+
+
+    def add(self, sbol_obj):
+        """
+
+
+        Appends the new value to a list of values, for properties that allow it.  
+
+        templateparam
+        -------------
+        * `SBOLClass` :  
+            The type of SBOL object contained in this OwnedObject property  
+        * `SBOLSubClass` :  
+            A derived class of SBOLClass. Use this type specialization when adding
+            multiple types of SBOLObjects to a container.  
+
+        Parameters
+        ----------
+        * `sbol_obj` :  
+            A child object to add to this container property. Adds a child object to the
+            parent object. This method always appends another object to those already
+            contained in this OwnedObject property. In SBOLCompliant mode, the create
+            method is preferred  
+
+        """
+        val = _libsbol.AliasedOwnedFunctionalComponent_add(self, sbol_obj)
+
+        try:
+            sbol_obj.thisown = False
+        except NameError:
+            try:
+                if not type(args[0]) == str:
+                    args[0].thisown = False
+            except NameError:
+                pass
+
+
+        return val
+
+
+    def get(self, *args):
+        """
+
+
+        Get the child object.  
+
+        templateparam
+        -------------
+        * `SBOLClass` :  
+            The type of the child object  
+        * `SBOLSubClass` :  
+            A derived class of SBOLClass. Use this type specialization when adding
+            multiple types of SBOLObjects to a container.  
+
+        Parameters
+        ----------
+        * `uri` :  
+            The specific URI for a child object if this OwnedObject property contains
+            multiple objects,  
+
+        Returns
+        -------
+        A reference to the child object Returns a child object from the OwnedObject
+        property. If no URI is specified, the first object in this OwnedObject property
+        is returned.  
+
+        """
+        return _libsbol.AliasedOwnedFunctionalComponent_get(self, *args)
+
+
+    def create(self, uri):
+        """
+
+
+        templateparam
+        -------------
+        * `SBOLClass` :  
+            The type of SBOL object contained in this OwnedObject property  
+        * `SBOLSubClass` :  
+            A derived class of SBOLClass. Use this specialization for OwnedObject
+            properties which contain multiple types of SBOLObjects.  
+
+        Parameters
+        ----------
+        * `uri` :  
+            If SBOLCompliance is enabled, this should be the displayId for the new child
+            object. If not enabled, this should be a full raw URI.  
+
+        Returns
+        -------
+        A reference to the child object Autoconstructs a child object and attaches it to
+        the parent object. The new object will be constructed with default values
+        specified in the constructor for this type of object. If SBOLCompliance is
+        enabled, the child object's identity will be constructed using the supplied
+        displayId argument. Otherwise, the user should supply a full URI.  check
+        uniqueness of URI in Document  
+
+        """
+        val = _libsbol.AliasedOwnedFunctionalComponent_create(self, uri)
+
+        val.thisown = False
+
+
+        return val
+
+
+    def define(self, definition_object):
+        return _libsbol.AliasedOwnedFunctionalComponent_define(self, definition_object)
+AliasedOwnedFunctionalComponent_swigregister = _libsbol.AliasedOwnedFunctionalComponent_swigregister
+AliasedOwnedFunctionalComponent_swigregister(AliasedOwnedFunctionalComponent)
 
 
 def applyToComponentHierarchy(self, callback_fn, user_data):
